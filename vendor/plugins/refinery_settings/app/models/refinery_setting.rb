@@ -4,6 +4,8 @@ class RefinerySetting < ActiveRecord::Base
   validates_uniqueness_of :name
 
   serialize :value # stores into YAML format
+  serialize :form_options
+  
   after_save do |object|
     cache_write(object.name, object.value)
   end
@@ -46,11 +48,13 @@ class RefinerySetting < ActiveRecord::Base
     end
   end
 
-  def self.find_or_set(name, the_value)
+  def self.find_or_set(name, the_value, category = nil, form_type = nil, form_options = nil)
     # Try to get the value from cache first.
     unless (value = cache_read(name)).present?
       # Either find the record or create one with the defined value
-      value = find_or_create_by_name(:name => name.to_s, :value => the_value).value
+      value = find_or_create_by_name(:name => name.to_s, :value => the_value, 
+                                      :category => category, :form_type => form_type, 
+                                      :form_options => form_options).value
       # Cache it
       cache_write(name, value)
     end

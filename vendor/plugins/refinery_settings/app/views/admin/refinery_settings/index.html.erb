@@ -3,6 +3,24 @@
     <li>
       <%= link_to "Create New Setting", new_admin_refinery_setting_url, :class => "add_icon" %>
     </li>
+    <li>
+      <% if @category.nil? %>
+        <%= link_to "<strong>General Settings</strong>", admin_refinery_settings_url, :class => "edit_icon" %>
+      <% else %>
+        <%= link_to "General Settings", admin_refinery_settings_url, :class => "edit_icon" %>
+      <% end %>
+    </li>
+    <% if @categories.any? %>
+      <% @categories.each do |category| %>
+        <li>
+          <% if category == @category %>
+            <%= link_to "<strong>#{category}</strong>", admin_refinery_settings_url(:page => 1, :category => category), :class => "edit_icon" %>
+          <% else %>
+            <%= link_to category, admin_refinery_settings_url(:page => 1, :category => category), :class => "edit_icon" %>
+          <% end %>
+        </li>
+      <% end %>
+    <% end %>
   </ul>
 </div>
 <div id='records'>

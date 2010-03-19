@@ -1,4 +1,4 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file,
+# This file is auto-generated from the current state of the database. Instead of editing this file, 
 # please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100315203301) do
+ActiveRecord::Schema.define(:version => 20100319161829) do
 
   create_table "images", :force => true do |t|
     t.integer  "parent_id"
@@ -44,6 +44,19 @@ ActiveRecord::Schema.define(:version => 20100315203301) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "music_settings", :force => true do |t|
+    t.string   "name"
+    t.boolean  "value"
+    t.string   "color"
+    t.integer  "size"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "music_settings", ["id"], :name => "index_music_settings_on_id"
+  add_index "music_settings", ["name"], :name => "index_music_settings_on_name"
 
   create_table "page_parts", :force => true do |t|
     t.integer  "page_id"
@@ -83,9 +96,13 @@ ActiveRecord::Schema.define(:version => 20100315203301) do
   create_table "refinery_settings", :force => true do |t|
     t.string   "name"
     t.text     "value"
-    t.boolean  "destroyable", :default => true
+    t.boolean  "destroyable",  :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "form_type"
+    t.string   "form_options"
+    t.string   "form_values"
+    t.string   "category"
   end
 
   add_index "refinery_settings", ["name"], :name => "index_refinery_settings_on_name"
@@ -110,6 +127,20 @@ ActiveRecord::Schema.define(:version => 20100315203301) do
 
   add_index "slugs", ["name", "sluggable_type", "scope", "sequence"], :name => "index_slugs_on_name_and_sluggable_type_and_scope_and_sequence", :unique => true
   add_index "slugs", ["sluggable_id"], :name => "index_slugs_on_sluggable_id"
+
+  create_table "songs", :force => true do |t|
+    t.string   "title"
+    t.string   "artist"
+    t.text     "description"
+    t.boolean  "published",          :default => true
+    t.boolean  "show_download_link", :default => true
+    t.integer  "resource_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "songs", ["id", "published"], :name => "index_songs_on_id_and_published"
 
   create_table "user_plugins", :force => true do |t|
     t.integer "user_id"

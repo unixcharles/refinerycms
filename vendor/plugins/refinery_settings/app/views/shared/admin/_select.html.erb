@@ -1,0 +1,12 @@
+<%= error_messages_for :refinery_setting %>
+<% form_for [:admin, @refinery_setting] do |f| %>
+  <div class='field'>
+    <label>Name</label>
+    <%= h(@refinery_setting.name).titleize %> <span class="preview">- (<%= h @refinery_setting.name %>)</span>
+  </div>
+  <div class='field'>
+    <%= f.label :value %>
+    <%= f.select :value, @refinery_setting.form_options, :selected => @refinery_setting.value.to_s %>
+  </div>
+  <%= render :partial => "/shared/admin/form_actions", :locals => {:f => f, :continue_editing => false} %>
+<% end -%>
