@@ -42,7 +42,7 @@ protected
 
 private
   def redirect_if_old_url
-    redirect_to request.path.gsub('admin', 'refinery') if request.path =~ /^(|\/)admin/
+    redirect_to request.path.gsub('admin', 'refinery') if request.path =~ /^(|\/)admin/ and APP_CONFIG['admin_prefix'] != 'admin'
   end
 
   # This fixes the issue where Internet Explorer browsers are presented with a basic auth dialogue

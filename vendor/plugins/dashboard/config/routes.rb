@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.namespace(:admin, :path_prefix => 'refinery') do |admin|
+  map.namespace(:admin, :path_prefix => APP_CONFIG['admin_prefix']) do |admin|
     admin.resources :dashboard
   end
 end
